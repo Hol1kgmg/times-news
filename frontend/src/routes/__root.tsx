@@ -8,6 +8,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { Provider } from "jotai";
 
+import { NotFoundPage } from "#/pages/NotFound";
 import { LangToggle } from "#/shared/ui/LangToggle";
 
 import appCss from "../styles.css?url";
@@ -47,6 +48,7 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => (
 
 export const Route = createRootRoute({
   component: RootLayout,
+  notFoundComponent: NotFoundPage,
   head: () => ({
     meta: [
       {
@@ -61,6 +63,19 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,

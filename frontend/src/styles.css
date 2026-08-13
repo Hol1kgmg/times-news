@@ -10,4 +10,9 @@ body,
 
 body {
   margin: 0;
+  font-family: "Klee One", cursive, sans-serif;
+}
+
+.text-kyokasho {
+  font-family: "Klee One", cursive, sans-serif;
 }
