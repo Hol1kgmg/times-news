@@ -1,0 +1,1 @@
+export { SampleMatchPage } from "./page";

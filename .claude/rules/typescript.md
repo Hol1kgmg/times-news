@@ -1,0 +1,81 @@
+# TypeScript Rules
+
+Full reference: [docs/coding-guide.md](../docs/coding-guide.md)
+
+> **Note**: This file contains only the key rules needed for quick reference.
+> Full details and rationale are in the guide above. When in doubt, read the guide.
+
+## Branded Types
+
+Domain identifiers (IDs, names, etc.) must be declared as Branded Types — never as raw primitives.
+
+```ts
+// ✅ Correct location: entities/xxx/model/types.ts
+import type { Branded } from "#/shared/lib/branded";
+
+export type OrderId   = Branded<number, "OrderId">;
+export type OrderName = Branded<string, "OrderName">;
+```
+
+Use Branded Types in props to prevent accidentally passing the wrong ID type:
+
+```ts
+// ✅
+type Props = { orderId: OrderId };
+
+// ❌ Raw primitives allow ID mix-ups
+type Props = { orderId: number };
+```
+
+## Type Assertion Rules
+
+| Usage | Allowed | Location |
+|---|---|---|
+| `as T` (converting BFF `unknown` response → Raw type) | ✅ | `adapters.ts` only |
+| `brand<T>()` | ✅ | `adapters.ts` only |
+| `as T` (anywhere else) | ❌ | — |
+| `!` (Non-null assertion) | ❌ | — |
+
+### adapters.ts — the only place for type casting
+
+```ts
+// ✅ entities/xxx/model/adapters.ts
+export const toOrder = (raw: RawOrder): Order => ({
+  id:   brand<OrderId>(raw.id),
+  name: brand<OrderName>(raw.name),
+});
+```
+
+```ts
+// ❌ Never call brand() inside components or hooks
+```
+
+## Non-null Assertion
+
+Never use `!`. Replace with:
+- Explicit `undefined` check: `if (value !== undefined)`
+- Optional chaining: `value?.property`
+
+## 関数定義スタイル
+
+`function` 宣言・関数式は禁止。`const` + アロー関数で統一する（lint: `prefer-arrow-functions/prefer-arrow-functions`）。
+
+```ts
+// ✅
+export const fetchOrder = async (id: OrderId): Promise<Order> => { ... }
+export const OrderCard = ({ order }: Props) => { ... }
+
+// ❌
+export function fetchOrder(id: OrderId) { ... }
+export function OrderCard({ order }: Props) { ... }
+export const fetchOrder = function(id: OrderId) { ... }
+```
+
+## Raw Type Naming
+
+BFF response types must use the `Raw` prefix:
+
+```ts
+type RawOrder = { id: number; name: string };  // ✅
+type Order    = { id: OrderId; name: OrderName };  // internal domain type
+```

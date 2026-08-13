@@ -1,0 +1,59 @@
+[tools]
+node = "24.15.0"
+pnpm = "11.4.0"
+gitleaks = "8.30.0"
+actionlint = "1.7.12"
+ghalint = "1.5.6"
+pinact = "4.0.0"
+
+[tasks.install]
+description = "Install frontend dependencies"
+run = "pnpm --dir frontend install"
+
+[tasks.dev]
+description = "Start the development server"
+run = "pnpm --dir frontend dev"
+
+[tasks.build]
+description = "Build for production"
+run = "pnpm --dir frontend build"
+
+[tasks.preview]
+description = "Preview the production build"
+run = "pnpm --dir frontend preview"
+
+[tasks.generate-routes]
+description = "Generate TanStack Router route tree"
+run = "pnpm --dir frontend generate-routes"
+
+[tasks.test]
+description = "Run unit tests"
+run = "pnpm --dir frontend test"
+
+[tasks."test:e2e"]
+description = "Run E2E tests"
+run = "pnpm --dir frontend test:e2e"
+
+[tasks."test:e2e:ui"]
+description = "Run E2E tests with UI"
+run = "pnpm --dir frontend test:e2e:ui"
+
+[tasks.lint]
+description = "Run linter"
+run = "pnpm --dir frontend lint"
+
+[tasks."lint:markup"]
+description = "Run markup linter"
+run = "pnpm --dir frontend lint:markup"
+
+[tasks.format]
+description = "Format code"
+run = "pnpm --dir frontend format"
+
+[tasks.typecheck]
+description = "Run TypeScript type check"
+run = "pnpm --dir frontend typecheck"
+
+[tasks.deploy]
+description = "Deploy to Cloudflare Workers"
+run = "pnpm --dir frontend deploy"

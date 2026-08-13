@@ -1,0 +1,26 @@
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      run: mise exec -- gitleaks protect --staged --no-banner
+    lint-code:
+      root: "frontend/"
+      glob: "src/**/*.{ts,tsx}"
+      run: pnpm oxlint --fix {staged_files}
+      stage_fixed: true
+    format-code:
+      root: "frontend/"
+      glob: "src/**/*.{ts,tsx,js,jsx}"
+      run: pnpm oxfmt {staged_files}
+      stage_fixed: true
+    lint-markup:
+      root: "frontend/"
+      glob: "src/**/*.tsx"
+      run: pnpm markuplint {staged_files} --fix --problem-only
+      stage_fixed: true
+    typecheck:
+      root: "frontend/"
+      run: pnpm typecheck
+    test:
+      root: "frontend/"
+      run: pnpm test
