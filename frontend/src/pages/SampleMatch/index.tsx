@@ -1,1 +1,0 @@
-export { SampleMatchPage } from "./page";

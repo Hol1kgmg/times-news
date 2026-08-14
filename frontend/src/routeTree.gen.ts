@@ -1,4 +1,4 @@
- 
+/* eslint-disable */
 
 // @ts-nocheck
 
@@ -10,68 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SampleMatchRouteImport } from './routes/sample/match'
-import { Route as ApiSampleMatchRouteImport } from './routes/api/sample/match'
-import { Route as ApiSampleItemsRouteImport } from './routes/api/sample/items'
+import { Route as TimesIndexRouteImport } from './routes/times/index'
+import { Route as ApiLinkPreviewRouteImport } from './routes/api/link-preview'
+import { Route as ApiArchiveItemsRouteImport } from './routes/api/archive/items'
+import { Route as ApiArchiveDatesRouteImport } from './routes/api/archive/dates'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SampleMatchRoute = SampleMatchRouteImport.update({
-  id: '/sample/match',
-  path: '/sample/match',
+const TimesIndexRoute = TimesIndexRouteImport.update({
+  id: '/times/',
+  path: '/times/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiSampleMatchRoute = ApiSampleMatchRouteImport.update({
-  id: '/api/sample/match',
-  path: '/api/sample/match',
+const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
+  id: '/api/link-preview',
+  path: '/api/link-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiSampleItemsRoute = ApiSampleItemsRouteImport.update({
-  id: '/api/sample/items',
-  path: '/api/sample/items',
+const ApiArchiveItemsRoute = ApiArchiveItemsRouteImport.update({
+  id: '/api/archive/items',
+  path: '/api/archive/items',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiArchiveDatesRoute = ApiArchiveDatesRouteImport.update({
+  id: '/api/archive/dates',
+  path: '/api/archive/dates',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/sample/match': typeof SampleMatchRoute
-  '/api/sample/items': typeof ApiSampleItemsRoute
-  '/api/sample/match': typeof ApiSampleMatchRoute
+  '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/times/': typeof TimesIndexRoute
+  '/api/archive/dates': typeof ApiArchiveDatesRoute
+  '/api/archive/items': typeof ApiArchiveItemsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/sample/match': typeof SampleMatchRoute
-  '/api/sample/items': typeof ApiSampleItemsRoute
-  '/api/sample/match': typeof ApiSampleMatchRoute
+  '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/times': typeof TimesIndexRoute
+  '/api/archive/dates': typeof ApiArchiveDatesRoute
+  '/api/archive/items': typeof ApiArchiveItemsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/sample/match': typeof SampleMatchRoute
-  '/api/sample/items': typeof ApiSampleItemsRoute
-  '/api/sample/match': typeof ApiSampleMatchRoute
+  '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/times/': typeof TimesIndexRoute
+  '/api/archive/dates': typeof ApiArchiveDatesRoute
+  '/api/archive/items': typeof ApiArchiveItemsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sample/match' | '/api/sample/items' | '/api/sample/match'
+  fullPaths:
+    | '/'
+    | '/api/link-preview'
+    | '/times/'
+    | '/api/archive/dates'
+    | '/api/archive/items'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sample/match' | '/api/sample/items' | '/api/sample/match'
+  to:
+    | '/'
+    | '/api/link-preview'
+    | '/times'
+    | '/api/archive/dates'
+    | '/api/archive/items'
   id:
     | '__root__'
     | '/'
-    | '/sample/match'
-    | '/api/sample/items'
-    | '/api/sample/match'
+    | '/api/link-preview'
+    | '/times/'
+    | '/api/archive/dates'
+    | '/api/archive/items'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SampleMatchRoute: typeof SampleMatchRoute
-  ApiSampleItemsRoute: typeof ApiSampleItemsRoute
-  ApiSampleMatchRoute: typeof ApiSampleMatchRoute
+  ApiLinkPreviewRoute: typeof ApiLinkPreviewRoute
+  TimesIndexRoute: typeof TimesIndexRoute
+  ApiArchiveDatesRoute: typeof ApiArchiveDatesRoute
+  ApiArchiveItemsRoute: typeof ApiArchiveItemsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -83,25 +104,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sample/match': {
-      id: '/sample/match'
-      path: '/sample/match'
-      fullPath: '/sample/match'
-      preLoaderRoute: typeof SampleMatchRouteImport
+    '/times/': {
+      id: '/times/'
+      path: '/times'
+      fullPath: '/times/'
+      preLoaderRoute: typeof TimesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/sample/match': {
-      id: '/api/sample/match'
-      path: '/api/sample/match'
-      fullPath: '/api/sample/match'
-      preLoaderRoute: typeof ApiSampleMatchRouteImport
+    '/api/link-preview': {
+      id: '/api/link-preview'
+      path: '/api/link-preview'
+      fullPath: '/api/link-preview'
+      preLoaderRoute: typeof ApiLinkPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/sample/items': {
-      id: '/api/sample/items'
-      path: '/api/sample/items'
-      fullPath: '/api/sample/items'
-      preLoaderRoute: typeof ApiSampleItemsRouteImport
+    '/api/archive/items': {
+      id: '/api/archive/items'
+      path: '/api/archive/items'
+      fullPath: '/api/archive/items'
+      preLoaderRoute: typeof ApiArchiveItemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/archive/dates': {
+      id: '/api/archive/dates'
+      path: '/api/archive/dates'
+      fullPath: '/api/archive/dates'
+      preLoaderRoute: typeof ApiArchiveDatesRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -109,9 +137,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SampleMatchRoute: SampleMatchRoute,
-  ApiSampleItemsRoute: ApiSampleItemsRoute,
-  ApiSampleMatchRoute: ApiSampleMatchRoute,
+  ApiLinkPreviewRoute: ApiLinkPreviewRoute,
+  TimesIndexRoute: TimesIndexRoute,
+  ApiArchiveDatesRoute: ApiArchiveDatesRoute,
+  ApiArchiveItemsRoute: ApiArchiveItemsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

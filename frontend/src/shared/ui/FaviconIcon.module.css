@@ -1,0 +1,16 @@
+.favicon {
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 1px var(--color-shadow-soft));
+}
+
+.faviconFallback {
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  flex-shrink: 0;
+  color: var(--color-text-faint);
+  filter: drop-shadow(0 1px 1px var(--color-shadow-soft));
+}

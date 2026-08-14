@@ -2,23 +2,21 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
+import type { QueryClient } from "@tanstack/react-query";
 import { Provider } from "jotai";
 
 import { NotFoundPage } from "#/pages/NotFound";
-import { LangToggle } from "#/shared/ui/LangToggle";
 
 import appCss from "../styles.css?url";
-import styles from "./__root.module.css";
+import kleeOne400Css from "@fontsource/klee-one/400.css?url";
+import kleeOne600Css from "@fontsource/klee-one/600.css?url";
 
 const RootLayout = () => (
   <Provider>
-    <header className={styles.header}>
-      <LangToggle />
-    </header>
     <Outlet />
   </Provider>
 );
@@ -46,7 +44,7 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => (
   </html>
 );
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: RootLayout,
   notFoundComponent: NotFoundPage,
   head: () => ({
@@ -64,17 +62,12 @@ export const Route = createRootRoute({
     ],
     links: [
       {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
+        rel: "stylesheet",
+        href: kleeOne400Css,
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap",
+        href: kleeOne600Css,
       },
       {
         rel: "stylesheet",
