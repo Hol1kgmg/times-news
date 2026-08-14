@@ -14,6 +14,10 @@ run = "pnpm --dir frontend install"
 description = "Start the development server"
 run = "pnpm --dir frontend dev"
 
+[tasks."dev:host"]
+description = "Start the development server bound to 0.0.0.0"
+run = "pnpm --dir frontend dev:host"
+
 [tasks.build]
 description = "Build for production"
 run = "pnpm --dir frontend build"
