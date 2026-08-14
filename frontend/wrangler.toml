@@ -1,4 +1,4 @@
-name = "tanstack-start-fsd-template"
+name = "times-news"
 main = "dist/server/server.js"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
