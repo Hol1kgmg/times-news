@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   HeadContent,
   Outlet,
@@ -15,11 +16,19 @@ import appCss from "../styles.css?url";
 import kleeOne400Css from "@fontsource/klee-one/400.css?url";
 import kleeOne600Css from "@fontsource/klee-one/600.css?url";
 
-const RootLayout = () => (
-  <Provider>
-    <Outlet />
-  </Provider>
-);
+const RootLayout = () => {
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      import("react-scan").then(({ scan }) => scan({ enabled: true }));
+    }
+  }, []);
+
+  return (
+    <Provider>
+      <Outlet />
+    </Provider>
+  );
+};
 
 const RootDocument = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
