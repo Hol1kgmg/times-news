@@ -1,11 +1,9 @@
 name: ci
 
-# 試験的リポジトリのため push で実行。
-# 本番運用時は push を削除して pull_request に切り替えを推奨:
-#   pull_request:
-#     branches: [main]
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -26,7 +24,7 @@ jobs:
           node-version: "24.15.0"
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm --dir frontend install --frozen-lockfile
+      - run: pnpm --dir frontend install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm --dir frontend typecheck
 
   lint:
@@ -45,7 +43,7 @@ jobs:
           node-version: "24.15.0"
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm --dir frontend install --frozen-lockfile
+      - run: pnpm --dir frontend install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm --dir frontend lint
 
   test:
@@ -64,5 +62,5 @@ jobs:
           node-version: "24.15.0"
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm --dir frontend install --frozen-lockfile
+      - run: pnpm --dir frontend install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm --dir frontend test

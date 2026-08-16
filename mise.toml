@@ -10,6 +10,18 @@ pinact = "4.0.0"
 description = "Install frontend dependencies"
 run = "pnpm --dir frontend install"
 
+[tasks.uninstall]
+description = "Uninstall frontend dependencies"
+run = "pnpm --dir frontend uninstall"
+
+[tasks.add]
+description = "Add frontend dependencies"
+run = "pnpm --dir frontend add"
+
+[tasks.update]
+description = "Update frontend dependencies"
+run = "pnpm --dir frontend update"
+
 [tasks.dev]
 description = "Start the development server"
 run = "pnpm --dir frontend dev"
