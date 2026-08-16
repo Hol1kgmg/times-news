@@ -4,7 +4,9 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "saturday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     open-pull-requests-limit: 10
     cooldown:
       default-days: 2
@@ -40,6 +42,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "saturday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     cooldown:
       default-days: 2
