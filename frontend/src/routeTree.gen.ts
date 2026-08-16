@@ -10,19 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TimesIndexRouteImport } from './routes/times/index'
 import { Route as ApiLinkPreviewRouteImport } from './routes/api/link-preview'
-import { Route as ApiArchiveItemsRouteImport } from './routes/api/archive/items'
+import { Route as TimesIndexRouteImport } from './routes/times/index'
 import { Route as ApiArchiveDatesRouteImport } from './routes/api/archive/dates'
+import { Route as ApiArchiveItemsRouteImport } from './routes/api/archive/items'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TimesIndexRoute = TimesIndexRouteImport.update({
-  id: '/times/',
-  path: '/times/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
@@ -30,14 +25,19 @@ const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
   path: '/api/link-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiArchiveItemsRoute = ApiArchiveItemsRouteImport.update({
-  id: '/api/archive/items',
-  path: '/api/archive/items',
+const TimesIndexRoute = TimesIndexRouteImport.update({
+  id: '/times/',
+  path: '/times/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiArchiveDatesRoute = ApiArchiveDatesRouteImport.update({
   id: '/api/archive/dates',
   path: '/api/archive/dates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiArchiveItemsRoute = ApiArchiveItemsRouteImport.update({
+  id: '/api/archive/items',
+  path: '/api/archive/items',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -104,13 +104,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/times/': {
-      id: '/times/'
-      path: '/times'
-      fullPath: '/times/'
-      preLoaderRoute: typeof TimesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/link-preview': {
       id: '/api/link-preview'
       path: '/api/link-preview'
@@ -118,11 +111,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiLinkPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/archive/items': {
-      id: '/api/archive/items'
-      path: '/api/archive/items'
-      fullPath: '/api/archive/items'
-      preLoaderRoute: typeof ApiArchiveItemsRouteImport
+    '/times/': {
+      id: '/times/'
+      path: '/times'
+      fullPath: '/times/'
+      preLoaderRoute: typeof TimesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/archive/dates': {
@@ -130,6 +123,13 @@ declare module '@tanstack/react-router' {
       path: '/api/archive/dates'
       fullPath: '/api/archive/dates'
       preLoaderRoute: typeof ApiArchiveDatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/archive/items': {
+      id: '/api/archive/items'
+      path: '/api/archive/items'
+      fullPath: '/api/archive/items'
+      preLoaderRoute: typeof ApiArchiveItemsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
