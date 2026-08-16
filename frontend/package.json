@@ -53,7 +53,7 @@
     "eslint-plugin-react-you-might-not-need-an-effect": "^1.0.1",
     "eslint-plugin-security": "^4.0.1",
     "jsdom": "^30.0.1",
-    "lefthook": "^2.1.9",
+    "lefthook": "^2.1.10",
     "markuplint": "^4.18.3",
     "oxfmt": "^0.63.0",
     "oxlint": "^1.78.0",
