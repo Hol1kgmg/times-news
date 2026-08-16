@@ -1,26 +1,11 @@
 .previewCard {
-  position: absolute;
-  left: 1.5em;
-  z-index: 10;
-  width: 280px;
-  padding: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 0.75rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 6px;
-  box-shadow: 0 4px 12px var(--color-shadow);
-}
-
-.previewCardBelow {
-  top: 100%;
-  margin-top: 0.25rem;
-}
-
-.previewCardAbove {
-  bottom: 100%;
-  margin-bottom: 0.25rem;
 }
 
 .previewSkeleton {

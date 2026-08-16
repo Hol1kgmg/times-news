@@ -1,0 +1,17 @@
+.floating {
+  position: absolute;
+  left: 1.5em;
+  z-index: 10;
+  width: 280px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.floatingBelow {
+  top: 100%;
+  margin-top: 0.25rem;
+}
+
+.floatingAbove {
+  bottom: 100%;
+  margin-bottom: 0.25rem;
+}
