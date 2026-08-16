@@ -52,7 +52,7 @@
     "eslint-plugin-prefer-arrow-functions": "^3.6.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "^1.0.1",
     "eslint-plugin-security": "^4.0.1",
-    "jsdom": "^28.1.0",
+    "jsdom": "^30.0.1",
     "lefthook": "^2.1.9",
     "markuplint": "^4.18.3",
     "oxfmt": "^0.53.0",
