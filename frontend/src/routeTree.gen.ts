@@ -10,14 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiLinkPreviewRouteImport } from './routes/api/link-preview'
 import { Route as TimesIndexRouteImport } from './routes/times/index'
 import { Route as ApiArchiveDatesRouteImport } from './routes/api/archive/dates'
 import { Route as ApiArchiveItemsRouteImport } from './routes/api/archive/items'
+import { Route as ApiAuthLogoutRouteImport } from './routes/api/auth/logout'
+import { Route as ApiAuthSessionRouteImport } from './routes/api/auth/session'
+import { Route as ApiAuthGithubCallbackRouteImport } from './routes/api/auth/github/callback'
+import { Route as ApiAuthGithubLoginRouteImport } from './routes/api/auth/github/login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
@@ -40,59 +56,121 @@ const ApiArchiveItemsRoute = ApiArchiveItemsRouteImport.update({
   path: '/api/archive/items',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthLogoutRoute = ApiAuthLogoutRouteImport.update({
+  id: '/api/auth/logout',
+  path: '/api/auth/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSessionRoute = ApiAuthSessionRouteImport.update({
+  id: '/api/auth/session',
+  path: '/api/auth/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthGithubCallbackRoute = ApiAuthGithubCallbackRouteImport.update({
+  id: '/api/auth/github/callback',
+  path: '/api/auth/github/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthGithubLoginRoute = ApiAuthGithubLoginRouteImport.update({
+  id: '/api/auth/github/login',
+  path: '/api/auth/github/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
   '/api/archive/dates': typeof ApiArchiveDatesRoute
   '/api/archive/items': typeof ApiArchiveItemsRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/session': typeof ApiAuthSessionRoute
+  '/api/auth/github/callback': typeof ApiAuthGithubCallbackRoute
+  '/api/auth/github/login': typeof ApiAuthGithubLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/admin': typeof AdminIndexRoute
   '/times': typeof TimesIndexRoute
   '/api/archive/dates': typeof ApiArchiveDatesRoute
   '/api/archive/items': typeof ApiArchiveItemsRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/session': typeof ApiAuthSessionRoute
+  '/api/auth/github/callback': typeof ApiAuthGithubCallbackRoute
+  '/api/auth/github/login': typeof ApiAuthGithubLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
+  '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
   '/api/archive/dates': typeof ApiArchiveDatesRoute
   '/api/archive/items': typeof ApiArchiveItemsRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/session': typeof ApiAuthSessionRoute
+  '/api/auth/github/callback': typeof ApiAuthGithubCallbackRoute
+  '/api/auth/github/login': typeof ApiAuthGithubLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/api/link-preview'
+    | '/admin/'
     | '/times/'
     | '/api/archive/dates'
     | '/api/archive/items'
+    | '/api/auth/logout'
+    | '/api/auth/session'
+    | '/api/auth/github/callback'
+    | '/api/auth/github/login'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/api/link-preview'
+    | '/admin'
     | '/times'
     | '/api/archive/dates'
     | '/api/archive/items'
+    | '/api/auth/logout'
+    | '/api/auth/session'
+    | '/api/auth/github/callback'
+    | '/api/auth/github/login'
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/api/link-preview'
+    | '/admin/'
     | '/times/'
     | '/api/archive/dates'
     | '/api/archive/items'
+    | '/api/auth/logout'
+    | '/api/auth/session'
+    | '/api/auth/github/callback'
+    | '/api/auth/github/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   ApiLinkPreviewRoute: typeof ApiLinkPreviewRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   TimesIndexRoute: typeof TimesIndexRoute
   ApiArchiveDatesRoute: typeof ApiArchiveDatesRoute
   ApiArchiveItemsRoute: typeof ApiArchiveItemsRoute
+  ApiAuthLogoutRoute: typeof ApiAuthLogoutRoute
+  ApiAuthSessionRoute: typeof ApiAuthSessionRoute
+  ApiAuthGithubCallbackRoute: typeof ApiAuthGithubCallbackRoute
+  ApiAuthGithubLoginRoute: typeof ApiAuthGithubLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,6 +180,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/link-preview': {
@@ -132,15 +224,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiArchiveItemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/logout': {
+      id: '/api/auth/logout'
+      path: '/api/auth/logout'
+      fullPath: '/api/auth/logout'
+      preLoaderRoute: typeof ApiAuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/session': {
+      id: '/api/auth/session'
+      path: '/api/auth/session'
+      fullPath: '/api/auth/session'
+      preLoaderRoute: typeof ApiAuthSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/github/callback': {
+      id: '/api/auth/github/callback'
+      path: '/api/auth/github/callback'
+      fullPath: '/api/auth/github/callback'
+      preLoaderRoute: typeof ApiAuthGithubCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/github/login': {
+      id: '/api/auth/github/login'
+      path: '/api/auth/github/login'
+      fullPath: '/api/auth/github/login'
+      preLoaderRoute: typeof ApiAuthGithubLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   ApiLinkPreviewRoute: ApiLinkPreviewRoute,
+  AdminIndexRoute: AdminIndexRoute,
   TimesIndexRoute: TimesIndexRoute,
   ApiArchiveDatesRoute: ApiArchiveDatesRoute,
   ApiArchiveItemsRoute: ApiArchiveItemsRoute,
+  ApiAuthLogoutRoute: ApiAuthLogoutRoute,
+  ApiAuthSessionRoute: ApiAuthSessionRoute,
+  ApiAuthGithubCallbackRoute: ApiAuthGithubCallbackRoute,
+  ApiAuthGithubLoginRoute: ApiAuthGithubLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
