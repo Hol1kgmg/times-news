@@ -10,6 +10,9 @@
   --color-skeleton-highlight: #f5f5f5;
   --color-shadow: rgb(0 0 0 / 0.12);
   --color-shadow-soft: rgb(0 0 0 / 0.2);
+  --z-header: 20;
+  --z-sidebar-overlay: 25;
+  --z-sidebar: 30;
 }
 
 @media (prefers-color-scheme: dark) {

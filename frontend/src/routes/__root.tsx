@@ -11,10 +11,13 @@ import type { QueryClient } from "@tanstack/react-query";
 import { Provider } from "jotai";
 
 import { NotFoundPage } from "#/pages/NotFound";
+import { SiteHeader } from "#/widgets/site-header";
+import { SiteSidebar } from "#/widgets/site-sidebar";
 
 import appCss from "../styles.css?url";
 import kleeOne400Css from "@fontsource/klee-one/400.css?url";
 import kleeOne600Css from "@fontsource/klee-one/600.css?url";
+import rootLayoutStyles from "./__root.module.css";
 
 const RootLayout = () => {
   useEffect(() => {
@@ -25,7 +28,13 @@ const RootLayout = () => {
 
   return (
     <Provider>
-      <Outlet />
+      <div className={rootLayoutStyles.layout}>
+        <SiteHeader />
+        <SiteSidebar />
+        <main className={rootLayoutStyles.main}>
+          <Outlet />
+        </main>
+      </div>
     </Provider>
   );
 };
