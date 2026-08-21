@@ -3,6 +3,7 @@ import { isSessionPayload } from "./-types";
 
 export const SESSION_COOKIE_NAME = "session";
 export const OAUTH_STATE_COOKIE_NAME = "oauth_state";
+export const OAUTH_LOGIN_KEY_COOKIE_NAME = "oauth_login_key";
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 const OAUTH_STATE_MAX_AGE_SECONDS = 60 * 10;
@@ -118,3 +119,26 @@ export const buildOauthStateCookieClearHeader = (secure: boolean): string => {
 
 export const extractOauthStateCookieValue = (cookieHeader: string | null): string | null =>
   extractCookieValue(cookieHeader, OAUTH_STATE_COOKIE_NAME);
+
+export const buildOauthLoginKeyCookieHeader = (key: string, secure: boolean): string => {
+  const attributes = [
+    `${OAUTH_LOGIN_KEY_COOKIE_NAME}=${encodeURIComponent(key)}`,
+    "Path=/",
+    "HttpOnly",
+    "SameSite=Lax",
+    `Max-Age=${OAUTH_STATE_MAX_AGE_SECONDS}`,
+  ];
+  if (secure) attributes.push("Secure");
+  return attributes.join("; ");
+};
+
+export const buildOauthLoginKeyCookieClearHeader = (secure: boolean): string => {
+  const attributes = [`${OAUTH_LOGIN_KEY_COOKIE_NAME}=`, "Path=/", "HttpOnly", "SameSite=Lax", "Max-Age=0"];
+  if (secure) attributes.push("Secure");
+  return attributes.join("; ");
+};
+
+export const extractOauthLoginKeyCookieValue = (cookieHeader: string | null): string | null => {
+  const value = extractCookieValue(cookieHeader, OAUTH_LOGIN_KEY_COOKIE_NAME);
+  return value === null ? null : decodeURIComponent(value);
+};

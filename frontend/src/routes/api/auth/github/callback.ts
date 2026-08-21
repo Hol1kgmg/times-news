@@ -1,10 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import type { LoginErrorReason } from "#/entities/session";
+
 import { toGithubLogin, toRawGithubTokenResponse, toRawGithubUserResponse, toSessionSecret } from "../-adapters";
 import {
+  buildOauthLoginKeyCookieClearHeader,
   buildOauthStateCookieClearHeader,
   buildSessionCookieHeader,
   createSessionCookieValue,
+  extractOauthLoginKeyCookieValue,
   extractOauthStateCookieValue,
 } from "../-session";
 
@@ -26,12 +30,13 @@ export const Route = createFileRoute("/api/auth/github/callback")({
 
         const state = requestUrl.searchParams.get("state");
         const expectedState = extractOauthStateCookieValue(request.headers.get("Cookie"));
+        const loginAccessKey = extractOauthLoginKeyCookieValue(request.headers.get("Cookie"));
         const isHttps = requestUrl.protocol === "https:";
         if (state === null || expectedState === null || state !== expectedState) {
-          return new Response("Invalid state", {
-            status: 400,
-            headers: { "Set-Cookie": buildOauthStateCookieClearHeader(isHttps) },
-          });
+          const invalidStateHeaders = new Headers();
+          invalidStateHeaders.append("Set-Cookie", buildOauthStateCookieClearHeader(isHttps));
+          invalidStateHeaders.append("Set-Cookie", buildOauthLoginKeyCookieClearHeader(isHttps));
+          return new Response("Invalid state", { status: 400, headers: invalidStateHeaders });
         }
 
         const redirectUri = `${requestUrl.origin}/api/auth/github/callback`;
@@ -77,7 +82,15 @@ export const Route = createFileRoute("/api/auth/github/callback")({
 
         const login = toGithubLogin(user.login);
         if (login.toLowerCase() !== toGithubLogin(allowedLogin).toLowerCase()) {
-          return Response.json({ step: "not_allowed", login }, { status: 403 });
+          const notAllowedReason: LoginErrorReason = "not_allowed";
+          const notAllowedUrl = new URL("/login", requestUrl.origin);
+          notAllowedUrl.searchParams.set("error", notAllowedReason);
+          if (loginAccessKey !== null) notAllowedUrl.searchParams.set("key", loginAccessKey);
+
+          const notAllowedHeaders = new Headers({ Location: notAllowedUrl.toString() });
+          notAllowedHeaders.append("Set-Cookie", buildOauthStateCookieClearHeader(isHttps));
+          notAllowedHeaders.append("Set-Cookie", buildOauthLoginKeyCookieClearHeader(isHttps));
+          return new Response(null, { status: 302, headers: notAllowedHeaders });
         }
 
         const sessionSecretEnv = process.env.SESSION_SECRET;
@@ -93,6 +106,7 @@ export const Route = createFileRoute("/api/auth/github/callback")({
         const responseHeaders = new Headers({ Location: "/" });
         responseHeaders.append("Set-Cookie", cookieHeader);
         responseHeaders.append("Set-Cookie", buildOauthStateCookieClearHeader(isHttps));
+        responseHeaders.append("Set-Cookie", buildOauthLoginKeyCookieClearHeader(isHttps));
 
         return new Response(null, { status: 302, headers: responseHeaders });
       },

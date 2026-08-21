@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { buildOauthStateCookieHeader, createOauthState } from "../-session";
+import { buildOauthLoginKeyCookieHeader, buildOauthStateCookieHeader, createOauthState } from "../-session";
 
 export const Route = createFileRoute("/api/auth/github/login")({
   server: {
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/api/auth/github/login")({
 
         const requestUrl = new URL(request.url);
         const redirectUri = `${requestUrl.origin}/api/auth/github/callback`;
+        const loginAccessKey = requestUrl.searchParams.get("key");
 
         const state = createOauthState();
         const authorizeUrl = new URL("https://github.com/login/oauth/authorize");
@@ -20,13 +21,14 @@ export const Route = createFileRoute("/api/auth/github/login")({
         authorizeUrl.searchParams.set("redirect_uri", redirectUri);
         authorizeUrl.searchParams.set("state", state);
 
-        return new Response(null, {
-          status: 302,
-          headers: {
-            Location: authorizeUrl.toString(),
-            "Set-Cookie": buildOauthStateCookieHeader(state, requestUrl.protocol === "https:"),
-          },
-        });
+        const isHttps = requestUrl.protocol === "https:";
+        const responseHeaders = new Headers({ Location: authorizeUrl.toString() });
+        responseHeaders.append("Set-Cookie", buildOauthStateCookieHeader(state, isHttps));
+        if (loginAccessKey !== null) {
+          responseHeaders.append("Set-Cookie", buildOauthLoginKeyCookieHeader(loginAccessKey, isHttps));
+        }
+
+        return new Response(null, { status: 302, headers: responseHeaders });
       },
     },
   },

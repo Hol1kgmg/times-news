@@ -1,15 +1,36 @@
 "use client";
 
-import { useSessionStatus } from "../useSessionStatus";
+import { StatusDot } from "#/shared/ui/StatusDot";
 
-export const SessionStatus = () => {
+import type { LoginAccessKey } from "../model/types";
+import { useSessionStatus } from "../useSessionStatus";
+import { GithubLoginButton } from "./GithubLoginButton";
+
+import styles from "./SessionStatus.module.css";
+
+type Props = {
+  loginAccessKey?: LoginAccessKey;
+};
+
+export const SessionStatus = ({ loginAccessKey }: Props) => {
   const { data: session } = useSessionStatus();
 
+  const logoutHref =
+    loginAccessKey === undefined
+      ? "/api/auth/logout"
+      : `/api/auth/logout?key=${encodeURIComponent(loginAccessKey)}`;
+
   return session.authenticated ? (
-    <p>
-      ログイン中: {session.login}（<a href="/api/auth/logout">ログアウト</a>）
-    </p>
+    <div className={styles.authenticatedWrapper}>
+      <p className={styles.status}>
+        <StatusDot ping />
+        {session.login} でログイン中
+      </p>
+      <a className={styles.logoutButton} href={logoutHref}>
+        ログアウト
+      </a>
+    </div>
   ) : (
-    <p>未ログインです</p>
+    <GithubLoginButton loginAccessKey={loginAccessKey} />
   );
 };
