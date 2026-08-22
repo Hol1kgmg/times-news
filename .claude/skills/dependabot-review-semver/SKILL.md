@@ -43,7 +43,7 @@ CI状態・コンフリクト有無は呼び出し元（[[dependabot-review]]）
 - 対象パッケージ/actionのリリースノートURL（`https://github.com/<owner>/<repo>/releases` 形式で推測可）を明記し、確認すべき breaking changes の観点（API変更・実行環境要件・設定ファイル形式の変更など）を具体的に書く
 - body に breaking changes の記載があれば、それを直接引用して転記する
 - 一括更新（group PR）の場合は、その中でも影響範囲が大きいパッケージを名指しし、個別確認を促す
-- 実行環境要件の変更（Node.jsバージョン等）が言及されている場合は、`devenv.nix` や `package.json` の `engines` を実際に読み、要件を満たしているかどうかまで判定して記載する
+- 実行環境要件の変更（Node.jsバージョン等）が言及されている場合は、`flake.nix` の `devShells.default.packages` や `package.json` の `engines` を実際に読み、要件を満たしているかどうかまで判定して記載する
 
 ### 4. 呼び出し元への結果の受け渡し
 

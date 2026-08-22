@@ -12,18 +12,12 @@ TanStack Start / React 19 / FSD テンプレートリポジトリ
 
 ## 前提条件
 
-[Nix](https://nixos.org/) と [direnv](https://direnv.net/) がインストールされ、シェルに統合されていること。また [devenv](https://devenv.sh/) を導入していること。
+[Nix](https://nixos.org/) と [direnv](https://direnv.net/) がインストールされ、シェルに統合されていること。
 
 Nix (flakes有効化を含むインストーラ推奨):
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install)
-```
-
-devenv:
-
-```bash
-nix profile install --accept-flake-config https://install.devenv.sh/latest
 ```
 
 direnv (macOS / Homebrew):
@@ -47,7 +41,7 @@ source ~/.zshrc
 direnv allow
 ```
 
-初回はNix/devenvの環境構築が走ります。Node / pnpm / gitleaks / actionlint / ghalint / pinact / just が自動で用意されます。以降はディレクトリに入ると自動でシェルが有効化されます。
+初回はNixの環境構築が走ります。Node / pnpm / gitleaks / actionlint / ghalint / pinact / just が自動で用意されます。以降はディレクトリに入ると自動でシェルが有効化されます。
 
 > **Note**: `direnv` はシェルフックが次のプロンプト描画時に環境を再読込する仕組みのため、対話シェルで1コマンドずつ実行する分には `direnv allow` 直後から `just` 等が使えます。スクリプトの一括実行やCIなど非対話シェルで同一プロセス内に反映させたい場合は、`direnv exec . <command>`（例: `direnv exec . just install`）を使ってください。
 

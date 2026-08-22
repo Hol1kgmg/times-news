@@ -12,7 +12,7 @@ openな dependabot PR を洗い出し、ユーザーが選んだ対象につい�
 | ecosystem | 委譲先skill | 対象 |
 |---|---|---|
 | `npm` / `github-actions` | `dependabot-review-semver` | semverでバージョン差分を判定できるもの（`frontend/package.json`, `.github/workflows/`） |
-| `nix` | `dependabot-review-nix-flake` | `flake.lock`（`nixpkgs` / `devenv` / `flake-utils` の各input） |
+| `nix` | `dependabot-review-nix-flake` | `flake.lock`（`nixpkgs` / `flake-utils` の各input） |
 
 sub-skillはSkillツールで呼び出す（同一セッション内で継続実行されるため、以降の手順でsub-skillが出した判定結果をそのまま使ってレポートを作成できる）。
 
@@ -144,7 +144,7 @@ gh pr checks <番号>
 
 ### 事前準備
 
-`gh-stack` は devenv シェルに入ると自動でセットアップされる（`devenv.nix` の `enterShell` が Nix 管理下のバイナリを `gh` の拡張ディレクトリにリンクする）。手動インストールは不要。動作確認のみ行う:
+`gh-stack` は Nix シェルに入ると自動でセットアップされる（`flake.nix` の `shellHook` が Nix 管理下のバイナリを `gh` の拡張ディレクトリにリンクする）。手動インストールは不要。動作確認のみ行う:
 
 ```
 gh stack --help

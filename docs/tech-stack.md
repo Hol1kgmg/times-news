@@ -8,12 +8,12 @@ TanStack Start / React 19 / FSD テンプレートリポジトリのフロント
 
 | ツール | バージョン | 備考 |
 |---|---|---|
-| Node.js | 24.19.0 | Nix/devenv で管理（`devenv.nix`） |
+| Node.js | 24.19.0 | Nix で管理（`flake.nix` の `devShells.default`） |
 | pnpm | 11.4.0 | corepack 経由で固定（`frontend/package.json` の `packageManager`） |
 
-### 開発ツール（Nix/devenv 管理）
+### 開発ツール（Nix 管理）
 
-`devenv.nix` の `packages` で管理。バージョンはNixpkgs（`flake.lock`）に追従するため固定値は記載しない。
+`flake.nix` の `devShells.default.packages` で管理。バージョンはNixpkgs（`flake.lock`）に追従するため固定値は記載しない。
 
 | ツール | 用途 |
 |---|---|
