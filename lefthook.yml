@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     gitleaks:
-      run: mise exec -- gitleaks protect --staged --no-banner
+      run: gitleaks protect --staged --no-banner
     lint-code:
       root: "frontend/"
       glob: "src/**/*.{ts,tsx}"

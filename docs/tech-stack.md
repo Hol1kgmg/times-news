@@ -8,8 +8,22 @@ TanStack Start / React 19 / FSD テンプレートリポジトリのフロント
 
 | ツール | バージョン | 備考 |
 |---|---|---|
-| Node.js | 24.15.0 | mise で管理（`mise.toml`） |
-| pnpm | 11.4.0 | mise で管理（`mise.toml`） |
+| Node.js | 24.19.0 | Nix/devenv で管理（`devenv.nix`） |
+| pnpm | 11.4.0 | corepack 経由で固定（`frontend/package.json` の `packageManager`） |
+
+### 開発ツール（Nix/devenv 管理）
+
+`devenv.nix` の `packages` で管理。バージョンはNixpkgs（`flake.lock`）に追従するため固定値は記載しない。
+
+| ツール | 用途 |
+|---|---|
+| just | タスクランナー（`justfile`） |
+| gitleaks | シークレット検出（pre-commitフック） |
+| actionlint | GitHub Actions ワークフローの静的解析 |
+| ghalint | GitHub Actions ワークフローのセキュリティ設定チェック |
+| pinact | GitHub Actions のバージョンpin管理 |
+| gh | GitHub CLI |
+| gh-stack（gh拡張） | スタックPRのcascade rebase（`dependabot-review`スキルの複数PRマージ手順で使用） |
 
 ---
 

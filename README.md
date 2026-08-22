@@ -12,35 +12,49 @@ TanStack Start / React 19 / FSD テンプレートリポジトリ
 
 ## 前提条件
 
-[mise](https://mise.jdx.dev/) がインストールされ、シェルに統合されていること。
+[Nix](https://nixos.org/) と [direnv](https://direnv.net/) がインストールされ、シェルに統合されていること。また [devenv](https://devenv.sh/) を導入していること。
 
-macOS (Homebrew):
+Nix (flakes有効化を含むインストーラ推奨):
 
 ```bash
-brew install mise
+sh <(curl -L https://nixos.org/nix/install)
+```
+
+devenv:
+
+```bash
+nix profile install --accept-flake-config https://install.devenv.sh/latest
+```
+
+direnv (macOS / Homebrew):
+
+```bash
+brew install direnv
 ```
 
 シェル統合 (zsh):
 
 ```bash
-echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
 ## セットアップ
 
-### 1. mise でツールバージョンを固定
+### 1. direnv を許可してツール環境を有効化
 
 ```bash
-mise trust && mise install
+direnv allow
 ```
 
-Node / pnpm / gitleaks が自動でインストールされます。
+初回はNix/devenvの環境構築が走ります。Node / pnpm / gitleaks / actionlint / ghalint / pinact / just が自動で用意されます。以降はディレクトリに入ると自動でシェルが有効化されます。
+
+> **Note**: `direnv` はシェルフックが次のプロンプト描画時に環境を再読込する仕組みのため、対話シェルで1コマンドずつ実行する分には `direnv allow` 直後から `just` 等が使えます。スクリプトの一括実行やCIなど非対話シェルで同一プロセス内に反映させたい場合は、`direnv exec . <command>`（例: `direnv exec . just install`）を使ってください。
 
 ### 2. 依存パッケージのインストール
 
 ```bash
-mise run install
+just install
 ```
 
 `pnpm install` 実行時に `lefthook install` が自動で走り、Git フックが設定されます。
@@ -48,28 +62,28 @@ mise run install
 ### 3. 開発サーバーの起動
 
 ```bash
-mise run dev
+just dev
 ```
 
 `http://localhost:3000` でアクセスできます。
 
 ## 開発コマンド
 
-利用可能なコマンドの一覧は `mise tasks` で確認できます。
+利用可能なコマンドの一覧は `just --list` で確認できます。
 
 | コマンド | 説明 |
 |---|---|
-| `mise run install` | 依存パッケージのインストール |
-| `mise run dev` | 開発サーバー起動 |
-| `mise run build` | プロダクションビルド |
-| `mise run preview` | ビルド成果物のプレビュー |
-| `mise run typecheck` | TypeScript 型チェック |
-| `mise run lint` | リンター |
-| `mise run format` | コードフォーマット |
-| `mise run test` | ユニットテスト |
-| `mise run test:e2e` | E2E テスト |
+| `just install` | 依存パッケージのインストール |
+| `just dev` | 開発サーバー起動 |
+| `just build` | プロダクションビルド |
+| `just preview` | ビルド成果物のプレビュー |
+| `just typecheck` | TypeScript 型チェック |
+| `just lint` | リンター |
+| `just format` | コードフォーマット |
+| `just test` | ユニットテスト |
+| `just test-e2e` | E2E テスト |
 
-オプションは `--` の後に渡します（例: `mise run dev -- --port 3001`）。
+追加の引数はそのまま後ろに渡せます（例: `just dev --port 3001`）。
 
 ## コミット時の自動チェック
 

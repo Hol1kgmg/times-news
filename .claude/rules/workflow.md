@@ -46,4 +46,4 @@ Phase 2: Distribute to proper layers (satisfy architecture guide criteria)
 3. Propose the distribution plan and wait for approval
 4. Move / split files into proper layers
 5. Verify with the completion checklist in the workflow guide (the `/arch-review` skill automates this check)
-6. Remove the `PHASE1` marker, then run `mise run typecheck` / `mise run lint` / `mise run test`
+6. Remove the `PHASE1` marker, then run `just typecheck` / `just lint` / `just test`

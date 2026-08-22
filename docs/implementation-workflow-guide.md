@@ -88,7 +88,7 @@ export { OrderSummary } from "./OrderSummary";
 3. **振り分け計画の提示** — 移動・分割の計画を提示し、承認を得る
 4. **移動・分割の実施** — types / adapters → `entities/xxx/model/`、データ取得・mutation → `features/`（または entities / aggregates）、atom → 各スコープの配置先、など
 5. **チェックリストによる判定** — 下記のチェックリストで完成形の基準を満たしているか確認する（`/arch-review` スキルで自動チェック可能）
-6. **マーカー削除** — `PHASE1` マーカーを削除し、`mise run typecheck` / `mise run lint` / `mise run test` で検証する
+6. **マーカー削除** — `PHASE1` マーカーを削除し、`just typecheck` / `just lint` / `just test` で検証する
 
 ### 完了判定チェックリスト
 
@@ -100,7 +100,7 @@ export { OrderSummary } from "./OrderSummary";
 - [ ] 依存方向が `app(routes) → pages → widgets → features → aggregates → entities → shared` の一方通行になっている
 - [ ] entities 間の cross-import が composite → atomic の一方向のみになっている
 - [ ] 外部非公開ファイルを持つスライスに `index.ts` の公開 API が定義されている
-- [ ] `mise run typecheck` / `mise run lint` / `mise run test` が通る
+- [ ] `just typecheck` / `just lint` / `just test` が通る
 
 ---
 

@@ -18,7 +18,9 @@
     "allow": [
       "Bash(git *)",
       "Bash(gh *)",
-      "Bash(mise *)",
+      "Bash(just *)",
+      "Bash(nix *)",
+      "Bash(direnv *)",
       "Bash(which *)",
       "Bash(type *)",
       "Bash(tree *)",
@@ -35,6 +37,9 @@
       "WebSearch",
       "Write",
       "Skill"
+    ],
+    "ask": [
+      "Bash(gh stack*)"
     ],
     "deny": []
   },

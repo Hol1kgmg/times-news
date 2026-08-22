@@ -47,3 +47,11 @@ updates:
       timezone: "Asia/Tokyo"
     cooldown:
       default-days: 2
+
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
