@@ -1,7 +1,6 @@
 "use client";
 
 import { useAtom } from "jotai";
-import type { KeyboardEvent } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { sidebarOpenAtom } from "#/shared/state/sidebarOpenAtom";
@@ -19,19 +18,9 @@ export const SiteSidebar = () => {
 
   const close = () => setIsOpen(false);
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Escape") {
-      close();
-    }
-  };
-
   return (
     <>
-      {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Escapeキーでのサイドバー閉じるためのハンドラ */}
-      <aside
-        className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}
-        onKeyDown={handleKeyDown}
-      >
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <Link to="/" className={styles.siteName}>
           Times News
         </Link>
