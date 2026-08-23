@@ -1,3 +1,7 @@
+# List available recipes for just
+list:
+    @just --list
+
 # Install frontend dependencies
 install:
     pnpm --dir frontend install
@@ -65,3 +69,4 @@ typecheck:
 # Deploy to Cloudflare Workers
 deploy:
     pnpm --dir frontend deploy
+

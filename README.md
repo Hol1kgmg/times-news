@@ -61,6 +61,29 @@ just dev
 
 `http://localhost:3000` でアクセスできます。
 
+## ローカル環境の個別セットアップ（任意）
+
+### just のタブ補完（zsh）
+
+`just` 標準の補完スクリプトを使うと、レシピ名をプレフィックス入力してからの絞り込み補完（例: `just d<Tab>` → `dev` / `dev-host` / `deploy`）が有効になります。
+
+補完スクリプトを保存します（初回のみ）:
+
+```bash
+mkdir -p ~/.zsh/completions
+just --completions zsh > ~/.zsh/completions/_just
+```
+
+`~/.zshrc` に以下を追加してください（`compinit` より前に `fpath` を設定する必要があります）:
+
+```bash
+fpath=(~/.zsh/completions $fpath)
+autoload -U compinit
+compinit
+```
+
+この設定を省略しても `just` コマンド自体の動作に影響はありません。
+
 ## 開発コマンド
 
 利用可能なコマンドの一覧は `just --list` で確認できます。
