@@ -11,32 +11,12 @@ updates:
     cooldown:
       default-days: 2
     groups:
-      tanstack:
+      npm-minor-patch:
         patterns:
-          - "@tanstack/*"
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
-          - "@types/react"
-          - "@types/react-dom"
-      markuplint:
-        patterns:
-          - "markuplint"
-          - "@markuplint/jsx-parser"
-      oxc:
-        patterns:
-          - "oxlint"
-          - "oxfmt"
-      vite:
-        patterns:
-          - "vite"
-          - "@vitejs/plugin-react"
-          - "vitest"
-      testing-library:
-        patterns:
-          - "@testing-library/dom"
-          - "@testing-library/react"
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -47,6 +27,13 @@ updates:
       timezone: "Asia/Tokyo"
     cooldown:
       default-days: 2
+    groups:
+      actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "nix"
     directory: "/"
