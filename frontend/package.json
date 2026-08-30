@@ -23,6 +23,9 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@dnd-kit/dom": "0.5.0",
+    "@dnd-kit/helpers": "0.5.0",
+    "@dnd-kit/react": "0.5.0",
     "@fontsource/klee-one": "^5.3.0",
     "@tanstack/react-devtools": "^0.10.12",
     "@tanstack/react-query": "^5.102.6",
