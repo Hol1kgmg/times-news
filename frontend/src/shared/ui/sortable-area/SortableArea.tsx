@@ -7,28 +7,9 @@ import type { ReactNode } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 import { SortableBox } from "./SortableBox";
+import { renderLayoutTree } from "./renderLayoutTree";
+import type { Layout } from "./renderLayoutTree";
 import styles from "./SortableArea.module.css";
-
-/**
- * CSS Grid で box の配置を自由に指定するための設定。
- * 指定しない場合は横並び（flex row）になる。
- *
- * @example 1つ目を左半分に縦通し、残り2つを右側に縦積みする場合
- * ```
- * layout={{
- *   columns: "1fr 1fr",
- *   rows: "1fr 1fr",
- *   areas: `"areaA areaB" "areaA areaC"`,
- *   boxArea: (boxId) => boxId,
- * }}
- * ```
- */
-type Layout = {
-  columns: string;
-  rows?: string;
-  areas: string;
-  boxArea: (boxId: string) => string;
-};
 
 type Props<T> = {
   value: Record<string, T[]>;
@@ -57,6 +38,8 @@ export const SortableArea = <T,>({
     });
   }
 
+  const boxes = Object.entries(value).map(([boxId, items]) => ({ boxId, items }));
+
   return (
     <DragDropProvider
       onDragOver={(event) => {
@@ -74,29 +57,19 @@ export const SortableArea = <T,>({
         onChange(next);
       }}
     >
-      <div
-        className={layout ? `${styles.area} ${styles.grid}` : styles.area}
-        style={
-          layout
-            ? {
-                gridTemplateColumns: layout.columns,
-                gridTemplateRows: layout.rows,
-                gridTemplateAreas: layout.areas,
-              }
-            : undefined
-        }
-      >
-        {Object.entries(value).map(([boxId, items]) => (
-          <SortableBox
-            key={boxId}
-            boxId={boxId}
-            items={items}
-            getId={getId}
-            renderItem={renderItem}
-            title={renderBoxTitle?.(boxId)}
-            style={layout ? { gridArea: layout.boxArea(boxId), width: "auto" } : undefined}
-          />
-        ))}
+      <div className={styles.area}>
+        {layout === undefined
+          ? boxes.map(({ boxId, items }) => (
+              <SortableBox
+                key={boxId}
+                boxId={boxId}
+                items={items}
+                getId={getId}
+                renderItem={renderItem}
+                title={renderBoxTitle?.(boxId)}
+              />
+            ))
+          : renderLayoutTree({ layout, boxes, getId, renderItem, renderBoxTitle })}
       </div>
     </DragDropProvider>
   );
