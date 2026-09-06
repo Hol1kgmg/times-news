@@ -42,7 +42,7 @@
   display: none;
 }
 
-@media (max-width: 767px) {
+@media (--mobile) {
   .sidebar {
     position: fixed;
     top: 0;

@@ -4,22 +4,34 @@ import {
   Outlet,
   Scripts,
   createRootRouteWithContext,
+  useLoaderData,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { Provider } from "jotai";
+import { useHydrateAtoms } from "jotai/utils";
 
 import { NotFoundPage } from "#/pages/NotFound";
+import { isMobileAtom } from "#/shared/state/isMobileAtom";
 import { SiteHeader } from "#/widgets/site-header";
 import { SiteSidebar } from "#/widgets/site-sidebar";
+
+import { detectIsMobile } from "./-device";
 
 import appCss from "../styles.css?url";
 import kleeOne400Css from "@fontsource/klee-one/400.css?url";
 import kleeOne600Css from "@fontsource/klee-one/600.css?url";
 import rootLayoutStyles from "./__root.module.css";
 
+const HydrateIsMobileAtom = ({ isMobile }: { isMobile: boolean }) => {
+  useHydrateAtoms([[isMobileAtom, isMobile]]);
+  return null;
+};
+
 const RootLayout = () => {
+  const { isMobile } = useLoaderData({ from: "__root__" });
+
   useEffect(() => {
     if (import.meta.env.DEV) {
       import("react-scan").then(({ scan }) => scan({ enabled: true }));
@@ -28,6 +40,7 @@ const RootLayout = () => {
 
   return (
     <Provider>
+      <HydrateIsMobileAtom isMobile={isMobile} />
       <div className={rootLayoutStyles.layout}>
         <SiteHeader />
         <SiteSidebar />
@@ -65,6 +78,7 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => (
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: RootLayout,
   notFoundComponent: NotFoundPage,
+  loader: async () => ({ isMobile: await detectIsMobile() }),
   head: () => ({
     meta: [
       {

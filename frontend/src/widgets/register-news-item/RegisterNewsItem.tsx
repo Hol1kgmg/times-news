@@ -3,7 +3,24 @@
 import { useState } from "react";
 
 import { RandomUrlButton } from "./RandomUrlButton";
-import { buildLeftFixedLayout, SortableArea } from "#/shared/ui/sortable-area";
+import { useIsMobile } from "#/shared/lib/useIsMobile";
+import { SortableArea } from "#/shared/ui/sortable-area";
+import type { Layout } from "#/shared/ui/sortable-area";
+
+// 左を1個・右に残り全部を縦積み（左右はドラッグでリサイズ可能）
+const desktopLayout: Layout = {
+  direction: "horizontal",
+  areas: [
+    { count: 1, size: 50 },
+    { layout: { direction: "vertical", areas: [{}] } },
+  ],
+};
+
+// モバイル幅では横分割が崩れるため、全boxを縦一列に積む
+const mobileLayout: Layout = {
+  direction: "vertical",
+  areas: [{}],
+};
 
 export type RegisterItem = {
   id: string;
@@ -18,6 +35,7 @@ const initialBoxes: Record<string, RegisterItem[]> = {
 
 export const RegisterNewsItem = () => {
   const [boxes, setBoxes] = useState(initialBoxes);
+  const isMobile = useIsMobile();
 
   const addItem = (item: RegisterItem): "added" | "duplicate" => {
     const exists = Object.values(boxes)
@@ -38,7 +56,7 @@ export const RegisterNewsItem = () => {
         getId={(item) => item.id}
         renderItem={(item) => item.itemName}
         renderBoxTitle={(boxId) => boxId}
-        layout={buildLeftFixedLayout(Object.keys(boxes).length)}
+        layout={isMobile ? mobileLayout : desktopLayout}
       />
     </main>
   );

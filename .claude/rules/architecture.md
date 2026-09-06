@@ -111,7 +111,8 @@ Each page is a directory: `pages/XxxName/`
 - `ui/` — generic domain-agnostic components (Button, Modal, DataTable)
 - `lib/` — utility functions
 - `state/` — domain-agnostic global state only (sidebarOpen, theme); domain concepts like `currentUser` belong in `entities/`
-- No BFF communication, no response transformation, no custom hooks
+- No BFF communication, no response transformation
+- Custom hooks are allowed only when domain-agnostic and free of external I/O (e.g. `useCanHover`, `useMediaQuery` — browser API subscriptions with no BFF/network access)
 
 ## Atom Placement
 

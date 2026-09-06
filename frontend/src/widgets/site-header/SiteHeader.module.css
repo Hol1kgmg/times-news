@@ -14,7 +14,7 @@
   white-space: nowrap;
 }
 
-@media (max-width: 767px) {
+@media (--mobile) {
   .mobileHeader {
     position: fixed;
     top: 0.75rem;

@@ -1,18 +1,9 @@
-import { useSyncExternalStore } from "react";
+import { useAtomValue } from "jotai";
+
+import { useMediaQuery } from "./useMediaQuery";
+import { isMobileAtom } from "#/shared/state/isMobileAtom";
 
 const QUERY = "(hover: hover)";
 
-let mql: MediaQueryList | null = null;
-const getMql = () => (mql ??= window.matchMedia(QUERY));
-
-const subscribe = (onChange: () => void) => {
-  const list = getMql();
-  list.addEventListener("change", onChange);
-  return () => list.removeEventListener("change", onChange);
-};
-
-const getSnapshot = () => getMql().matches;
-const getServerSnapshot = () => true;
-
-export const useCanHover = (): boolean =>
-  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+// isMobileAtom: root loaderがサーバー側でUser-Agentから判定した値を流用する。
+export const useCanHover = (): boolean => useMediaQuery(QUERY, !useAtomValue(isMobileAtom));

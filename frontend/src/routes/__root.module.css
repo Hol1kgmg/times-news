@@ -9,7 +9,7 @@
   margin-left: 16rem;
 }
 
-@media (max-width: 767px) {
+@media (--mobile) {
   .main {
     margin-left: 0;
   }
