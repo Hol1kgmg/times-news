@@ -1,14 +1,22 @@
-# tanstack-start-fsd-template
+# times-news
 
-TanStack Start / React 19 / FSD テンプレートリポジトリ
+最近話題になった技術情報（IT/AI系の記事・ツールなど）を、日付・カテゴリ単位でまとめて後から見返すためのアーカイブアプリ。
 
-## このリポジトリの目的
+「times」は情報を発信する場所（媒体）としての名前で、そこで日々発信される1日分の記事セットを **Digest** と呼びます。
 
-本リポジトリは、TanStack Start の活用と、FSD（Feature-Sliced Design）の思想を取り入れた独自アーキテクチャの模索を目的としています。
+## できること
 
-ディレクトリ構造がただ一つに定まる形で明示されたアーキテクチャを理想として、実装者による判断のばらつきやレビューコスト、暗黙の依存関係の発生を防ぐことを目指しています。詳細は [docs/layer-architecture-guide.md](./docs/layer-architecture-guide.md) を参照してください。
+- Digest（日付ボックス）を新しい順に一覧表示。カテゴリ別のグルーピングはDigest内で管理
+- タイトル検索（日々のフロー消費よりストック検索を重視）
+- 外部リンクを新しいタブで開く
+- GitHub OAuthによる本人限定ログイン
+- 管理画面（`/admin`）からのDigest管理
 
-なお、リポジトリには汎用サンプル機能（サンプル相性診断）が `/sample/match` に含まれています。外部APIには依存せずテンプレート内で完結しており、各 FSD レイヤー（entities / features / widgets / pages / routes/api）の実装例として参照してください。`sample-` の付くスライスは実アプリ構築時にまとめて削除できます。トップページ（`/`）はテンプレートのプレースホルダーです。
+閲覧は誰でも可能な想定です（公開範囲は検討中）。登録・編集などの発信側の操作は、GitHub OAuthによる作者本人限定のログインに閉じています。
+
+## 技術構成
+
+TanStack Start / React 19 をベースに、FSD（Feature-Sliced Design）の思想を取り入れた独自アーキテクチャで実装しています。ディレクトリ構造がただ一つに定まる形で明示されたアーキテクチャを理想として、実装者による判断のばらつきやレビューコスト、暗黙の依存関係の発生を防ぐことを目指しています。詳細は [docs/layer-architecture-guide.md](./docs/layer-architecture-guide.md) を参照してください。
 
 ## 前提条件
 
