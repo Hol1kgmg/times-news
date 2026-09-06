@@ -6,19 +6,35 @@
   min-height: 120px;
   padding: 16px;
   border-radius: 8px;
-  background: transparent;
-  transition: background-color 0.15s ease;
+  border: 1px dashed transparent;
+  transition: border-color 0.15s ease, border-style 0.15s ease;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .title {
-  margin: 0 0 4px;
-  font-weight: bold;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6e6e73;
+}
+
+.count {
+  font-size: 15px;
+  color: #86868b;
 }
 
 .dragging {
-  background: rgb(100 116 139 / 0.2);
+  border-color: rgb(0 0 0 / 0.15);
 }
 
 .active {
-  background: rgb(59 130 246 / 0.35);
+  border-style: solid;
+  border-color: rgb(0 0 0 / 0.3);
 }
