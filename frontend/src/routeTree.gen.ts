@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminRegisterRouteImport } from './routes/admin/register'
 import { Route as ApiLinkPreviewRouteImport } from './routes/api/link-preview'
 import { Route as TimesIndexRouteImport } from './routes/times/index'
 import { Route as ApiArchiveDatesRouteImport } from './routes/api/archive/dates'
@@ -34,6 +35,11 @@ const LoginRoute = LoginRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRegisterRoute = AdminRegisterRouteImport.update({
+  id: '/admin/register',
+  path: '/admin/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
@@ -80,6 +86,7 @@ const ApiAuthGithubLoginRoute = ApiAuthGithubLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
   '/admin': typeof AdminIndexRoute
   '/times': typeof TimesIndexRoute
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/admin/register'
     | '/api/link-preview'
     | '/admin/'
     | '/times/'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/admin/register'
     | '/api/link-preview'
     | '/admin'
     | '/times'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/login'
+    | '/admin/register'
     | '/api/link-preview'
     | '/admin/'
     | '/times/'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  AdminRegisterRoute: typeof AdminRegisterRoute
   ApiLinkPreviewRoute: typeof ApiLinkPreviewRoute
   AdminIndexRoute: typeof AdminIndexRoute
   TimesIndexRoute: typeof TimesIndexRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/register': {
+      id: '/admin/register'
+      path: '/admin/register'
+      fullPath: '/admin/register'
+      preLoaderRoute: typeof AdminRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/link-preview': {
@@ -258,6 +278,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  AdminRegisterRoute: AdminRegisterRoute,
   ApiLinkPreviewRoute: ApiLinkPreviewRoute,
   AdminIndexRoute: AdminIndexRoute,
   TimesIndexRoute: TimesIndexRoute,

@@ -18,6 +18,14 @@ pre-commit:
       glob: "src/**/*.tsx"
       run: pnpm markuplint {staged_files} --fix --problem-only
       stage_fixed: true
+    routetree-staged:
+      # 生成物の add 漏れ検知。typecheck はローカルの生成済みファイルを見て通ってしまうため、
+      # ルートファイルの追加/削除時に routeTree.gen.ts のステージを必須にする。
+      # lefthook は未ステージ分を退避するため、インデックス (--cached) のみを見る
+      run: |
+        git diff --cached --name-status | grep -qE '^[AD][[:space:]]+frontend/src/routes/.*\.tsx$' || exit 0
+        git diff --cached --name-only | grep -qx 'frontend/src/routeTree.gen.ts'
+      fail_text: "ルートファイルを追加/削除しています。`pnpm --dir frontend dev` 等で routeTree.gen.ts を再生成し `git add` してください"
     typecheck:
       root: "frontend/"
       run: pnpm typecheck
