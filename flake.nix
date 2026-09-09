@@ -2,9 +2,10 @@
   inputs = {
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
     flake-utils.url = "github:numtide/flake-utils";
+    nur-packages.url = "github:Hol1kgmg/nur-packages";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, nur-packages, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -49,6 +50,7 @@
             pkgs.gh
             pkgs.jq
             pkgs.bc
+            nur-packages.packages.${system}.spec-kit
           ] ++ ghExtensions;
 
           shellHook = ''
