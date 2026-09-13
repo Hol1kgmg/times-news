@@ -50,6 +50,12 @@ export const toOrder = (raw: RawOrder): Order => ({
 // ❌ Never call brand() inside components or hooks
 ```
 
+### テストファイルの例外
+
+`*.test.ts` / `*.test.tsx` / `*.fixture.ts` では、フィクスチャ生成のために `brand<T>()` の
+呼び出しを許可する（Branded Type の値を組み立てられないとテストが書けないため）。
+`as T` と `!` はテストコードでも引き続き禁止。詳細は [testing.md](./testing.md) を参照。
+
 ## Non-null Assertion
 
 Never use `!`. Replace with:

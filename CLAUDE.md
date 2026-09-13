@@ -28,6 +28,7 @@ Setup instructions and basic usage are documented in [README.md](./README.md).
 @.claude/rules/server-functions.md
 @.claude/rules/naming.md
 @.claude/rules/styling.md
+@.claude/rules/testing.md
 
 # Language Settings
 - Responses: `.claude/settings.json` - `language`

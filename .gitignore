@@ -1,2 +1,5 @@
 # direnv
 .direnv/
+
+# test coverage
+coverage/
