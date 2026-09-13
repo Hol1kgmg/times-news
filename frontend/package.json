@@ -34,7 +34,7 @@
     "@tanstack/react-router-ssr-query": "^1.167.2",
     "@tanstack/react-start": "1.168.51",
     "@tanstack/router-plugin": "1.168.37",
-    "jotai": "^2.20.3",
+    "jotai": "^3.0.0",
     "lucide-react": "^1.43.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
