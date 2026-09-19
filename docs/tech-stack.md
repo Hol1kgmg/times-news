@@ -8,8 +8,17 @@ TanStack Start / React 19 / FSD テンプレートリポジトリのフロント
 
 | ツール | バージョン | 備考 |
 |---|---|---|
-| Node.js | 24.19.0 | Nix で管理（`flake.nix` の `devShells.default`） |
+| Node.js | 24系（現在 24.20.0） | Nix で管理（`flake.nix` の `nodejs` / `packages.node`）。パッチバージョンは `flake.lock` に追従する |
 | pnpm | 11.4.0 | corepack 経由で固定（`frontend/package.json` の `packageManager`） |
+
+CI（`.github/workflows/frontend-ci.yml`）はこれらのバージョンを固定値で持たず、それぞれの定義元から解決する。
+
+| ツール | CI での解決方法 |
+|---|---|
+| Node.js | `node-version` ジョブが `nix eval --raw .#node.version` で `flake.lock` から解決し、後続ジョブの `setup-node` に渡す |
+| pnpm | `pnpm/action-setup` の `package_json_file: frontend/package.json` で `packageManager` フィールドから解決する |
+
+これにより手元の devShell と CI のランタイムが乖離しない。`flake.nix` で `nodejs_24` 以外のメジャーへ切り替える場合は上の表の「現在」の記載のみ追従すればよい。
 
 ### 開発ツール（Nix 管理）
 

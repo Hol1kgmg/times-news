@@ -11,6 +11,9 @@
         pkgs = nixpkgs.legacyPackages.${system};
         lib = pkgs.lib;
 
+        # CI の setup-node にも同じバージョンを渡すため、ここを唯一の定義箇所にする
+        nodejs = pkgs.nodejs_24;
+
         # nixpkgs未収載のためローカルでビルドする
         gh-pr-graph = pkgs.buildGoModule {
           pname = "gh-pr-graph";
@@ -39,9 +42,13 @@
           fi
         '';
       in {
+        # GitHub Actions が `nix eval --raw .#node.version` で参照する。
+        # flake.lock の nixpkgs 更新に CI の Node.js バージョンを自動追従させるため。
+        packages.node = nodejs;
+
         devShells.default = pkgs.mkShell {
           packages = [
-            pkgs.nodejs_24
+            nodejs
             pkgs.gitleaks
             pkgs.actionlint
             pkgs.ghalint
