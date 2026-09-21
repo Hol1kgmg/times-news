@@ -1,20 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { ReactNode } from "react";
 import { useDragOperation, useDroppable } from "@dnd-kit/react";
 import { SortableItem } from "./SortableItem";
 import styles from "./SortableBox.module.css";
 
+// getId / renderItem をメソッド記法で宣言している点に意味がある。
+// アロー記法だと strictFunctionTypes により引数が反変になり、memo() が推論する
+// Props<unknown> への代入が通らない。メソッド記法は双変のため総称のまま memo に包める。
 type Props<T> = {
   boxId: string;
   items: T[];
-  getId: (item: T) => string;
-  renderItem: (item: T) => ReactNode;
+  getId(item: T): string;
+  renderItem(item: T): ReactNode;
   title?: ReactNode;
 };
 
-export const SortableBox = <T,>({
+const SortableBoxInner = <T,>({
   boxId,
   items,
   getId,
@@ -75,3 +78,8 @@ export const SortableBox = <T,>({
     </div>
   );
 };
+
+// memo() は総称型を潰すため、明示的な総称シグネチャの注釈で呼び出し側の型推論を保つ。
+// items / getId / renderItem の参照が安定していれば、ドラッグ中の無関係な box の
+// 再レンダリング（配下の SortableItem 含む）をここで打ち切れる。
+export const SortableBox: <T>(props: Props<T>) => ReactNode = memo(SortableBoxInner);

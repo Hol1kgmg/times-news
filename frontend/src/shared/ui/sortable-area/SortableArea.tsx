@@ -28,35 +28,44 @@ export const SortableArea = <T,>({
   renderBoxTitle,
   layout,
 }: Props<T>) => {
-  const itemsById = new Map<string, T>();
-  const idsByBox: Record<string, string[]> = {};
-  for (const [boxId, items] of Object.entries(value)) {
-    idsByBox[boxId] = items.map((item) => {
-      const id = getId(item);
-      itemsById.set(id, item);
-      return id;
-    });
-  }
-
   const boxes = Object.entries(value).map(([boxId, items]) => ({ boxId, items }));
 
+  const handleDragOver = (event: Parameters<typeof move>[1]) => {
+    const itemsById = new Map<string, T>();
+    const idsByBox: Record<string, string[]> = {};
+    for (const [boxId, items] of Object.entries(value)) {
+      idsByBox[boxId] = items.map((item) => {
+        const id = getId(item);
+        itemsById.set(id, item);
+        return id;
+      });
+    }
+
+    const nextIdsByBox = move(idsByBox, event);
+
+    // move() は並びが変わらなかったとき入力をそのまま返す。ドラッグ中の pointermove は
+    // 大半がこのケースなので、ここで打ち切れば無駄な onChange と再レンダリングが消える。
+    if (nextIdsByBox === idsByBox) return;
+
+    const next: Record<string, T[]> = {};
+    for (const [boxId, ids] of Object.entries(nextIdsByBox)) {
+      // 中身が変わっていない box は元の配列参照を再利用する（SortableBox の memo を効かせるため）。
+      next[boxId] =
+        idsByBox[boxId] === ids
+          ? value[boxId]
+          : ids.map((id) => {
+              const item = itemsById.get(id);
+              if (item === undefined) {
+                throw new Error(`SortableArea: unknown item id "${id}"`);
+              }
+              return item;
+            });
+    }
+    onChange(next);
+  };
+
   return (
-    <DragDropProvider
-      onDragOver={(event) => {
-        const nextIdsByBox = move(idsByBox, event);
-        const next: Record<string, T[]> = {};
-        for (const [boxId, ids] of Object.entries(nextIdsByBox)) {
-          next[boxId] = ids.map((id) => {
-            const item = itemsById.get(id);
-            if (item === undefined) {
-              throw new Error(`SortableArea: unknown item id "${id}"`);
-            }
-            return item;
-          });
-        }
-        onChange(next);
-      }}
-    >
+    <DragDropProvider onDragOver={handleDragOver}>
       <div className={styles.area}>
         {layout === undefined
           ? boxes.map(({ boxId, items }) => (

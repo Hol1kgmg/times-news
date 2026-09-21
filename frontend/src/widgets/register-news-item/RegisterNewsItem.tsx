@@ -27,6 +27,12 @@ export type RegisterItem = {
   itemName: string;
 };
 
+// SortableBox の memo を効かせるため、props に渡す関数は参照を固定する。
+// いずれも外側の値を参照しないためモジュールスコープに置けば十分。
+const getItemId = (item: RegisterItem): string => item.id;
+const renderRegisterItem = (item: RegisterItem): string => item.itemName;
+const renderBoxTitle = (boxId: string): string => boxId;
+
 const initialBoxes: Record<string, RegisterItem[]> = {
   areaA: [],
   areaB: [],
@@ -53,9 +59,9 @@ export const RegisterNewsItem = () => {
       <SortableArea
         value={boxes}
         onChange={setBoxes}
-        getId={(item) => item.id}
-        renderItem={(item) => item.itemName}
-        renderBoxTitle={(boxId) => boxId}
+        getId={getItemId}
+        renderItem={renderRegisterItem}
+        renderBoxTitle={renderBoxTitle}
         layout={isMobile ? mobileLayout : desktopLayout}
       />
     </main>
