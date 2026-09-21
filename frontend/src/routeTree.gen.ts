@@ -14,7 +14,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminRegisterRouteImport } from './routes/admin/register'
 import { Route as ApiLinkPreviewRouteImport } from './routes/api/link-preview'
-import { Route as SandboxDndSandboxRouteImport } from './routes/sandbox/dnd-sandbox'
 import { Route as SandboxNewsItemEditorPreviewRouteImport } from './routes/sandbox/news-item-editor-preview'
 import { Route as TimesIndexRouteImport } from './routes/times/index'
 import { Route as ApiArchiveDatesRouteImport } from './routes/api/archive/dates'
@@ -47,11 +46,6 @@ const AdminRegisterRoute = AdminRegisterRouteImport.update({
 const ApiLinkPreviewRoute = ApiLinkPreviewRouteImport.update({
   id: '/api/link-preview',
   path: '/api/link-preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SandboxDndSandboxRoute = SandboxDndSandboxRouteImport.update({
-  id: '/sandbox/dnd-sandbox',
-  path: '/sandbox/dnd-sandbox',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SandboxNewsItemEditorPreviewRoute =
@@ -101,7 +95,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
-  '/sandbox/dnd-sandbox': typeof SandboxDndSandboxRoute
   '/sandbox/news-item-editor-preview': typeof SandboxNewsItemEditorPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
@@ -117,7 +110,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
-  '/sandbox/dnd-sandbox': typeof SandboxDndSandboxRoute
   '/sandbox/news-item-editor-preview': typeof SandboxNewsItemEditorPreviewRoute
   '/admin': typeof AdminIndexRoute
   '/times': typeof TimesIndexRoute
@@ -134,7 +126,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/admin/register': typeof AdminRegisterRoute
   '/api/link-preview': typeof ApiLinkPreviewRoute
-  '/sandbox/dnd-sandbox': typeof SandboxDndSandboxRoute
   '/sandbox/news-item-editor-preview': typeof SandboxNewsItemEditorPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/times/': typeof TimesIndexRoute
@@ -152,7 +143,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/register'
     | '/api/link-preview'
-    | '/sandbox/dnd-sandbox'
     | '/sandbox/news-item-editor-preview'
     | '/admin/'
     | '/times/'
@@ -168,7 +158,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/register'
     | '/api/link-preview'
-    | '/sandbox/dnd-sandbox'
     | '/sandbox/news-item-editor-preview'
     | '/admin'
     | '/times'
@@ -184,7 +173,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/register'
     | '/api/link-preview'
-    | '/sandbox/dnd-sandbox'
     | '/sandbox/news-item-editor-preview'
     | '/admin/'
     | '/times/'
@@ -201,7 +189,6 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   AdminRegisterRoute: typeof AdminRegisterRoute
   ApiLinkPreviewRoute: typeof ApiLinkPreviewRoute
-  SandboxDndSandboxRoute: typeof SandboxDndSandboxRoute
   SandboxNewsItemEditorPreviewRoute: typeof SandboxNewsItemEditorPreviewRoute
   AdminIndexRoute: typeof AdminIndexRoute
   TimesIndexRoute: typeof TimesIndexRoute
@@ -248,13 +235,6 @@ declare module '@tanstack/react-router' {
       path: '/api/link-preview'
       fullPath: '/api/link-preview'
       preLoaderRoute: typeof ApiLinkPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sandbox/dnd-sandbox': {
-      id: '/sandbox/dnd-sandbox'
-      path: '/sandbox/dnd-sandbox'
-      fullPath: '/sandbox/dnd-sandbox'
-      preLoaderRoute: typeof SandboxDndSandboxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sandbox/news-item-editor-preview': {
@@ -321,7 +301,6 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   AdminRegisterRoute: AdminRegisterRoute,
   ApiLinkPreviewRoute: ApiLinkPreviewRoute,
-  SandboxDndSandboxRoute: SandboxDndSandboxRoute,
   SandboxNewsItemEditorPreviewRoute: SandboxNewsItemEditorPreviewRoute,
   AdminIndexRoute: AdminIndexRoute,
   TimesIndexRoute: TimesIndexRoute,

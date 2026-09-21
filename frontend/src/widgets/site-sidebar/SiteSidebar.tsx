@@ -11,7 +11,6 @@ const navLinks = [
   { href: "/admin/register", label: "新規Digest" },
   { href: "/times", label: "timesリスト" },
   { href: "/sandbox/news-item-editor-preview", label: "item編集UI 検証" },
-  { href: "/sandbox/dnd-sandbox", label: "dnd-kit 検証" },
 ] as const;
 
 export const SiteSidebar = () => {
