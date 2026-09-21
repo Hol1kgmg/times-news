@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@csstools/postcss-global-data": "^4.0.0",
-    "@markuplint/jsx-parser": "^4.18.3",
+    "@markuplint/jsx-parser": "^5.0.0",
     "@playwright/test": "^1.63.0",
     "@tanstack/devtools-vite": "^0.8.5",
     "@tanstack/router-cli": "1.167.38",
