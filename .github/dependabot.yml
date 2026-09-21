@@ -11,6 +11,13 @@ updates:
     cooldown:
       default-days: 2
     groups:
+      # markuplint 本体とパーサは同一モノレポで、メジャー間で AST 契約が変わる。
+      # 片方だけ更新されると壊れるため、更新種別を問わず 1 PR にまとめる。
+      # npm-minor-patch より上に置くこと（先にマッチしたグループが優先される）。
+      markuplint:
+        patterns:
+          - "markuplint"
+          - "@markuplint/*"
       npm-minor-patch:
         patterns:
           - "*"
