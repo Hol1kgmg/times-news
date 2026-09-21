@@ -8,9 +8,10 @@ import { sidebarOpenAtom } from "#/shared/state/sidebarOpenAtom";
 import styles from "./SiteSidebar.module.css";
 
 const navLinks = [
-  { href: "#link-1", label: "リンク1" },
-  { href: "#link-2", label: "リンク2" },
-  { href: "#link-3", label: "リンク3" },
+  { href: "/admin/register", label: "新規Digest" },
+  { href: "/times", label: "timesリスト" },
+  { href: "/sandbox/news-item-editor-preview", label: "item編集UI 検証" },
+  { href: "/sandbox/dnd-sandbox", label: "dnd-kit 検証" },
 ] as const;
 
 export const SiteSidebar = () => {
